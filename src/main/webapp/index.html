@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="resources/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function getUser() {
+		var user = {
+			"username" : "你爱我",
+			"id" : 456
+		};
+		$.ajax({
+			type : "POST",
+			url : "user/getUser",
+			contentType : "application/json; charset=UTF-8",
+			processData:false,
+			data : JSON.stringify(user),
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
+			}
+		});
+	}
+	function getUsers() {
+		var users = [];
+		var user1 = {
+			"id" : 123,
+			"username" : "你爱我"
+		};
+		var user2 = {
+			"username" : "我不爱你",
+			"id" : 456
+		};
+		users.push(user1);
+		users.push(user2);
+		$.ajax({
+			type : "POST",
+			url : "user/getUsers",
+			contentType : "application/json; charset=UTF-8",
+			processData:false,
+			data : JSON.stringify(users),
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
+			},
+			error:function(jqXHR, textStatus, errorThrown ){
+				console.log(errorThrown);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="getUser" onclick="getUser()" />
+	<input type="button" value="getUsers" onclick="getUsers()" />
+	<form action="user/upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"/>
+		<input type="submit" value="upload"/>
+	</form>
+</body>
+</html>
